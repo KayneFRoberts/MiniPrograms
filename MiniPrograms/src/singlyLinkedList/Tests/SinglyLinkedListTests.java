@@ -5,7 +5,6 @@ package singlyLinkedList.Tests;
 
 import static org.junit.Assert.*;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import singlyLinkedList.SinglyLinkedList;
@@ -62,13 +61,26 @@ public class SinglyLinkedListTests {
 		newList.addListItem(test2);
 		newList.addListItem(test3);
 		newList.addListItem(test4);
-		newList.outputList();
 		assertEquals("Size of list is created as expected.", 4, newList.getSize());
 		newList.removeListItem(1);
-		newList.outputList();
 		assertEquals("Size of list is created as expected.", 3, newList.getSize());
 		newList.addListItem(test1, 1);
 		assertEquals("Size of list is created as expected.", 4, newList.getSize());
-		newList.outputList();
+	}
+	
+	@Test
+	public void addErrorIndex(){
+		newList= new SinglyLinkedList();
+		newList.addListItem(test1);
+		newList.addListItem(test2);
+		newList.addListItem(test3);
+		newList.addListItem(test4);
+		
+		assertTrue(newList.removeListItem(newList.getSize()+2)==false);
+		
+		newList.addListItem("XXX", newList.getSize()+2);
+		assertEquals("Size of list is still as expected.", 4, newList.getSize());
+		
+		assertEquals(newList.getListItem(newList.getSize()+3), null);
 	}
 }

@@ -51,21 +51,24 @@ public class SinglyLinkedList {
 	public void addListItem(Object data, int index) {
 		newNode = new Node(data);// Temporary data node
 		currentNode = headNode;// Set temporarily to start of list
-
-		if (index == 1) {// Replace head
-			secondNewNode = new Node(headNode.getData());
-			headNode.setData(newNode.getData());
-			newNode = secondNewNode;
+		
+		if(index<=listSize)
+		{
+			if (index == 1) {// Replace head
+				secondNewNode = new Node(headNode.getData());
+				headNode.setData(newNode.getData());
+				newNode = secondNewNode;
+			}
+			// Search through list to index point
+			for (int i = 1; i < index && currentNode.getNext() != null; i++) {
+				currentNode = currentNode.getNext();
+			}
+			newNode.setNext(currentNode.getNext());// Set new Node's pointer to next
+													// node
+			currentNode.setNext(newNode);// Set current Node's reference to new node
+											// setup
+			listSize++;
 		}
-		// Search through list to index point
-		for (int i = 1; i < index && currentNode.getNext() != null; i++) {
-			currentNode = currentNode.getNext();
-		}
-		newNode.setNext(currentNode.getNext());// Set new Node's pointer to next
-												// node
-		currentNode.setNext(newNode);// Set current Node's reference to new node
-										// setup
-		listSize++;
 	}
 
 	/**
@@ -74,7 +77,7 @@ public class SinglyLinkedList {
 	 * @return Object - object at index in list
 	 **/
 	public Object getListItem(int index) {
-		if (index <= 0) {
+		if (index <= 0 || index>listSize) {
 			// index is invalid, return null
 			return null;
 		}
@@ -97,7 +100,7 @@ public class SinglyLinkedList {
 	 * @return boolean - returns true or false as to whether removed
 	 **/
 	public boolean removeListItem(int index) {
-		if (index <= 0) {
+		if (index <= 0 || index>listSize) {
 			// index is invalid, return false
 			return false;
 		}
